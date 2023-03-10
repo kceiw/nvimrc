@@ -47,6 +47,7 @@ local languages = {
   "dockerls",
   "docker_compose_language_service",
   "jsonls",
+  "powershell_es",
   "prosemd_lsp",
   "pyright",
   "yamlls"
@@ -105,7 +106,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      automatic_installation = true,
+      ensure_installed = languages,
     }
   },
   {
