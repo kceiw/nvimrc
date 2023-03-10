@@ -91,8 +91,6 @@ opt.foldcolumn = "1"
 opt.foldlevelstart = 4
 opt.foldnestmax = 5
 
-opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-
 opt.completeopt = { "menuone", "noselect" }
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 
