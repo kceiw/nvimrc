@@ -101,17 +101,19 @@ opt.showtabline = 2 -- always show tabs
 opt.title = true -- set the title of window to the value of the titlestring
 opt.titlestring = "%<%F%=%l/%L - nvim" -- what the title of the window will be set to
 
--- Set before apply toggleterm plugin
-local powershell_options = {
-  shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-  shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-  shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-  shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-  shellquote = "",
-  shellxquote = "",
-}
+local os_name = vim.loop.os_uname().sysname
+if string.find(os_name, "Windows") then
+  -- Set before apply toggleterm plugin
+  local powershell_options = {
+    shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+    shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+    shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+    shellquote = "",
+    shellxquote = "",
+  }
 
-for option, value in pairs(powershell_options) do
-  opt[option] = value
+  for option, value in pairs(powershell_options) do
+    opt[option] = value
+  end
 end
-
