@@ -16,10 +16,4 @@ return {
       vim.keymap.set("n", "<Leader>fh", builtin.help_tags, keymap_opts)
     end
   },
-  {
-    "mtth/scratch.vim",
-  },
-  {
-    "klen/nvim-config-local"
-  }
 }

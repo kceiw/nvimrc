@@ -1,0 +1,5 @@
+return {
+  {
+    "mtth/scratch.vim",
+  },
+}

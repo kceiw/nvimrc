@@ -113,5 +113,8 @@ return {
   },
   {
     "editorconfig/editorconfig-vim"
+  },
+  {
+    "klen/nvim-config-local"
   }
 }
