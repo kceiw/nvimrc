@@ -112,9 +112,6 @@ return {
     end,
   },
   {
-    "preservim/tagbar",
-  },
-  {
     "editorconfig/editorconfig-vim"
   }
 }
