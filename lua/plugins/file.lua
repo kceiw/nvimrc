@@ -99,7 +99,6 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons"
     },
-    opts = {},
     init = function()
       -- disable netrw at the very start of your init.lua (strongly advised)
       vim.g.loaded_netrw = 1
@@ -112,9 +111,10 @@ return {
     end,
   },
   {
-    "editorconfig/editorconfig-vim"
+    "editorconfig/editorconfig-vim",
   },
   {
-    "klen/nvim-config-local"
+    "klen/nvim-config-local",
+    config = true,
   }
 }

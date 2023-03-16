@@ -1,9 +1,9 @@
 return {
   {
-    "tpope/vim-surround"
+    "tpope/vim-surround",
   },
   {
-    "tpope/vim-repeat"
+    "tpope/vim-repeat",
   },
   {
     "phaazon/hop.nvim",
