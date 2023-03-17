@@ -45,11 +45,8 @@ local languages = {
   "bashls",
   "dockerls",
   "docker_compose_language_service",
-  "jsonls",
   "powershell_es",
-  "prosemd_lsp",
   "pyright",
-  "yamlls"
 }
 
 return {
@@ -106,6 +103,26 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = languages,
+    }
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        -- Ensure the linter tools are installed
+        "jsonlint",
+        "markdownlint",
+        "yamllint",
+
+        -- Ensure the formatter tools are installed
+        "clang-format",
+        "fixjson",
+        "stylua",
+        "prettier",
+        "prettierd",
+        "black",
+        "yamlfmt",
+      }
     }
   },
   {
@@ -167,7 +184,7 @@ return {
             require("formatter.filetypes.python").black,
           },
           yaml = {
-            require("formatter.filetypes.yaml").pyaml,
+            require("formatter.filetypes.yaml").yamlfmt,
           },
 
           -- Use the special "*" filetype for defining formatter configurations on
@@ -195,7 +212,6 @@ return {
       require("lint").linters_by_ft = {
         json = { "jsonlint" },
         markdown = { "markdownlint" },
-        python = { "pycodestyle" },
         yaml = { "yamllint" },
       }
     end,
