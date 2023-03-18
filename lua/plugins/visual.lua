@@ -5,6 +5,7 @@ return {
       char_list = { "|", "┆", "┊" },
       use_treesitter = true,
       show_current_context = true,
+      show_end_of_line = true,
     }
   },
   {
