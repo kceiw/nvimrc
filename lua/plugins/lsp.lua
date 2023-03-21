@@ -40,13 +40,13 @@ local on_attach = function(client, bufnr)
 end
 
 local languages = {
-  "lua_ls",
-  "omnisharp",
-  "bashls",
-  "dockerls",
-  "docker_compose_language_service",
-  "powershell_es",
-  "pyright",
+  ["lua_ls"] = "lua-language-server",
+  ["omnisharp"] = "omnisharp" ,
+  ["bashls"] = "bash-language-server",
+  ["dockerls"] = "dockerfile-language-server",
+  ["docker_compose_language_service"] = "docker-compose-language-service",
+  ["powershell_es"] = "powershell-editor-services",
+  ["pyright"] = "pyright",
 }
 
 return {
@@ -57,41 +57,59 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local locallsp = require("lspconfig")
 
-      for i = 1, #languages do
-        locallsp[languages[i]].setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
-        })
+      local nvim_data_path = vim.api.nvim_eval("stdpath('data')")
+      local mason_packages_path = nvim_data_path .. "/mason/packages/"
+
+      for key, value in pairs(languages) do
+        local language_path = mason_packages_path .. value
+        if vim.fn.isdirectory(language_path) ~= 0 then
+          if key == "lua_ls" then
+            locallsp["lua_ls"].setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+              settings = {
+                lua_ls = {
+                  diagnostics = {
+                    globals = {"vim"},
+                  },
+                },
+              },
+            })
+          elseif key == "omnisharp" then
+            locallsp["omnisharp"].setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+              cmd = { "OmniSharp" },
+              settings = {
+                omnisharp = {
+                  cmd = { "OmniSharp" },
+                  enable_editorconfig_support = true,
+                  enable_ms_build_load_projects_on_demand = true,
+                  enable_roslyn_analyzers = true,
+                  organize_imports_on_format = true,
+                }
+              }
+            })
+          elseif key == "powershell_es" then
+            locallsp[key].setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+              cmd = {"pwsh", "-Command", language_path .. "/PowerShellEditorServices"},
+              settings = {
+                powershell_es = {
+                  bundle_path = language_path .. "/PowerShellEditorServices",
+                }
+              }
+            })
+          else
+            locallsp[key].setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+            })
+          end
+        end
       end
 
-      -- overwrite the settings for particular languages.
-
-      locallsp["lua_ls"].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          lua_ls = {
-            diagnostics = {
-              globals = {"vim"},
-            },
-          },
-        },
-      })
-
-      locallsp["omnisharp"].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { "OmniSharp" },
-        settings = {
-          omnisharp = {
-            cmd = { "OmniSharp" },
-            enable_editorconfig_support = true,
-            enable_ms_build_load_projects_on_demand = true,
-            enable_roslyn_analyzers = true,
-            organize_imports_on_format = true,
-          }
-        }
-      })
 
     end
   },
