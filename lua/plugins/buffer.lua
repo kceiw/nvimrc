@@ -1,5 +1,5 @@
 return {
   {
-    "mtth/scratch.vim",
+    "vim-scripts/scratch.vim",
   },
 }
