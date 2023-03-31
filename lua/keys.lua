@@ -18,10 +18,6 @@ map("n", "<leader>w+", "<C-W>+", { noremap = true })
 map("n", "<leader>w=", "<C-W>=", { noremap = true })
 map("n", "<leader>w,", "<C-W>,", { noremap = true })
 map("n", "<leader>w.", "<C-W>.", { noremap = true })
-map("t", "<A-j>", "<C-W>j", { noremap = true })
-map("t", "<A-k>", "<C-W>k", { noremap = true })
-map("t", "<A-h>", "<C-W>h", { noremap = true })
-map("t", "<A-l>", "<C-W>l", { noremap = true })
 
 map("n", "<leader>rd", ":redraw<CR>", { noremap = true })
 
@@ -35,7 +31,7 @@ map("n", "<leader>tf", ":tabfirst<CR>", { noremap = true })
 map("n", "<leader>tl", ":tablast<CR>", { noremap = true })
 
 -- change the working directory to that of the current file
-map("n", "cd.", "lcd %:p:h", { noremap = true })
+map("n", "cd.", ":lcd %:p:h<CR>", { noremap = true })
 
 -- clear highlight
 map("n", "<leader><space>", ":noh<CR>", { noremap = true })
