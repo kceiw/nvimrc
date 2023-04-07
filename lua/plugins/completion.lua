@@ -6,7 +6,7 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-path",
+      "FelipeLema/cmp-async-path",
       "onsails/lspkind.nvim",
       -- For ultisnips users.
       "SirVer/ultisnips",
@@ -40,6 +40,12 @@ return {
           { name = "nvim_lua" },
           { name = "buffer" },
           { name = "ultisnips" },
+          {
+            name = "async_path",
+            option = {
+              trailing_path = true,
+            }
+          },
         }),
         enabled = function()
           -- disable completion in comments
