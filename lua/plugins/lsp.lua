@@ -53,7 +53,10 @@ local languages = {
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "Hoffs/omnisharp-extended-lsp.nvim"
+    },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local locallsp = require("lspconfig")
@@ -88,6 +91,9 @@ return {
                   enable_ms_build_load_projects_on_demand = true,
                   enable_roslyn_analyzers = true,
                   organize_imports_on_format = true,
+                   handlers = {
+                    ["textDocument/definition"] = require('omnisharp_extended').handler,
+                   }
                 }
               }
             })
@@ -113,6 +119,9 @@ return {
 
 
     end
+  },
+  {
+    "Hoffs/omnisharp-extended-lsp.nvim",
   },
   {
     "williamboman/mason.nvim",
