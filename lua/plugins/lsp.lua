@@ -40,6 +40,7 @@ local on_attach = function(client, bufnr)
 end
 
 local languages = {
+  ["clangd"] = "clangd",
   ["lua_ls"] = "lua-language-server",
   ["omnisharp"] = "omnisharp" ,
   ["bashls"] = "bash-language-server",
