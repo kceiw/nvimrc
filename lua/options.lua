@@ -35,6 +35,8 @@ opt.magic = true                 -- allow pattern matching with special characte
 opt.splitright = true            -- bool: Place new window to right of current one
 opt.splitbelow = true            -- bool: Place new window below the current one
 
+opt.paste = true -- not to format the text when it's pasted
+
 opt.expandtab = false
 opt.tabstop = 4
 opt.shiftwidth = 4
