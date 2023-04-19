@@ -39,3 +39,5 @@ map("n", "<leader><space>", ":noh<CR>", { noremap = true })
 -- strip trailing spaces
 map("n", "<leader>W", ":%s/\\s\\+$//<CR>:let @/=\"\"<CR>", { noremap = true })
 
+
+map("n", "<leader>nt", ":NvimTreeToggle<CR>", { noremap = true })
