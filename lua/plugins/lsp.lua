@@ -54,11 +54,11 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "Hoffs/omnisharp-extended-lsp.nvim"
+      "Hoffs/omnisharp-extended-lsp.nvim",
+      "ms-jpq/coq_nvim",
     },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("coq").lsp_ensure_capabilities()
       local locallsp = require("lspconfig")
 
       local nvim_data_path = vim.api.nvim_eval("stdpath('data')")
@@ -251,7 +251,4 @@ return {
       })
     end,
   },
-  {
-    "mfussenegger/nvim-dap",
-  }
 }
