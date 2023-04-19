@@ -5,6 +5,8 @@ return {
       "nvim-lua/plenary.nvim"
     },
 
+    config = true,
+
     init = function()
       local builtin = require("telescope.builtin")
       local keymap_opts = {
