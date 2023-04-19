@@ -50,6 +50,17 @@ local languages = {
   ["pyright"] = "pyright",
 }
 
+local lsp_languages = {
+  "clangd",
+  "lua_ls",
+  "omnisharp",
+  "bashls",
+  "dockerls",
+  "docker_compose_language_service",
+  "powershell_es",
+  "pyright",
+}
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -130,7 +141,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = languages,
+      ensure_installed = lsp_languages,
     }
   },
   {
