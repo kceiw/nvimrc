@@ -38,7 +38,7 @@ return {
       })
     end,
     init = function()
-      vim.cmd.colorscheme "frappe"
+      vim.cmd.colorscheme "catppuccin"
     end,
   }
 }
