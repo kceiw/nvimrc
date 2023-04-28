@@ -92,7 +92,22 @@ return {
             })
           elseif key == "omnisharp" then
             locallsp["omnisharp"].setup({
-              on_attach = on_attach,
+              on_attach = function (client, bufnr)
+                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1492605642
+                local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+                for i, v in ipairs(tokenModifiers) do
+                  local tmp = string.gsub(v, ' ', '_')
+                  tokenModifiers[i] = string.gsub(tmp, '-_', '')
+                end
+
+                local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+                for i, v in ipairs(tokenTypes) do
+                  local tmp = string.gsub(v, ' ', '_')
+                  tokenTypes[i] = string.gsub(tmp, '-_', '')
+                end
+
+                on_attach(client, bufnr)
+              end,
               capabilities = capabilities,
               cmd = { "OmniSharp" },
               settings = {
@@ -102,10 +117,10 @@ return {
                   enable_ms_build_load_projects_on_demand = true,
                   enable_roslyn_analyzers = true,
                   organize_imports_on_format = true,
-                   handlers = {
-                    ["textDocument/definition"] = require('omnisharp_extended').handler,
-                   }
                 }
+              },
+              handlers = {
+                ["textDocument/definition"] = require('omnisharp_extended').handler,
               }
             })
           elseif key == "powershell_es" then
