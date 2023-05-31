@@ -9,9 +9,10 @@ return {
           cmd = true,
           hop = true,
           illuminate = true,
+          markdown = true,
           mason = true,
-          native_lsp = true,
           nvimtree = true,
+          notify = true,
           treesitter = true,
           treesitter_context = true,
           telescope = true,
@@ -37,8 +38,20 @@ return {
         }
       })
     end,
-    init = function()
-      vim.cmd.colorscheme "catppuccin"
-    end,
+  },
+  {
+    "morhetz/gruvbox"
+  },
+  {
+    "NLKNguyen/papercolor-theme",
+  },
+  {
+    "ayu-theme/ayu-vim"
+  },
+  {
+    "nordtheme/vim",
+  },
+  {
+    "jnurmine/Zenburn"
   }
 }

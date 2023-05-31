@@ -66,10 +66,10 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "Hoffs/omnisharp-extended-lsp.nvim",
-      "ms-jpq/coq_nvim",
+      "hrsh7th/nvim-cmp",
     },
     config = function()
-      local capabilities = require("coq").lsp_ensure_capabilities().capabilities
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local locallsp = require("lspconfig")
 
       local nvim_data_path = vim.api.nvim_eval("stdpath('data')")

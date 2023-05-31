@@ -9,7 +9,7 @@ require("variables")
 require("options")
 require("keys")
 require("autocmd")
-require("device")
+require("local")
 
 -- install lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
