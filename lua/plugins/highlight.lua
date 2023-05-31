@@ -27,13 +27,15 @@ return {
         "jsonc",
         "lua",
         "markdown",
+        "markdown_inline",
         "python",
         "sql",
         "vim",
         "yaml"
       },
       highlight = {
-        enable = true
+        enable = true,
+        additional_vim_regex_highlighting = { "markdown" },
       },
       indent = {
         enable = true
