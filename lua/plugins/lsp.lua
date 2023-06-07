@@ -8,7 +8,6 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -94,16 +93,20 @@ return {
             locallsp["omnisharp"].setup({
               on_attach = function (client, bufnr)
                 -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1492605642
+
+                local function toSnakeCase(str)
+                    return string.gsub(str, "%s*[- ]%s*", "_")
+                end
+
                 local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
                 for i, v in ipairs(tokenModifiers) do
-                  local tmp = string.gsub(v, ' ', '_')
-                  tokenModifiers[i] = string.gsub(tmp, '-_', '')
+                  tokenModifiers[i] = toSnakeCase(v)
                 end
 
                 local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
                 for i, v in ipairs(tokenTypes) do
                   local tmp = string.gsub(v, ' ', '_')
-                  tokenTypes[i] = string.gsub(tmp, '-_', '')
+                  tokenTypes[i] = toSnakeCase(v)
                 end
 
                 on_attach(client, bufnr)
