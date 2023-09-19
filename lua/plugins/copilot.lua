@@ -20,7 +20,7 @@ return {
   },
   {
     "zbirenbaum/copilot-cmp",
-    depedencies = { "zbirenbaum/copilot.lua" },
+    dependencies = { "zbirenbaum/copilot.lua" },
     config = true,
   }
 }
