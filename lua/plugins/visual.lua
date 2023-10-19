@@ -1,11 +1,14 @@
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     opts = {
-      char_list = { "|", "┆", "┊" },
-      use_treesitter = true,
-      show_current_context = true,
-      show_end_of_line = true,
+      scope = {
+        char = { "|", "┆", "┊" },
+        show_exact_scope = true,
+        show_start = true,
+        show_end = true,
+      }
     }
   },
   {
