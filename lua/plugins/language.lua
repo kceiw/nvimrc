@@ -7,4 +7,7 @@ return {
       ignore = "^(%s*)$",
     }
   },
+  {
+    "moevis/base64.nvim",
+  },
 }
