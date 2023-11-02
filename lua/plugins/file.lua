@@ -107,6 +107,12 @@ return {
     config = function()
       require("nvim-tree").setup({
         on_attach = nvim_tree_on_attach,
+        respect_buf_cwd = true,
+        sync_root_with_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = true
+        },
       })
     end,
   },
