@@ -6,8 +6,7 @@ return {
     "tpope/vim-repeat",
   },
   {
-    "phaazon/hop.nvim",
-    branch = "v2",
+    "smoka7/hop.nvim",
 
     init = function()
       local hop = require("hop")
