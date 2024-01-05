@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- [[ Context ]]
-opt.colorcolumn = "128"          -- str:  Show col for max line length
+opt.colorcolumn = "120"          -- str:  Show col for max line length
 opt.number = true                -- bool: Show line numbers
 opt.relativenumber = true        -- bool: Show relative line numbers
 opt.scrolloff = 8               -- int:  Min num lines of context
@@ -10,7 +10,7 @@ opt.signcolumn = "yes"           -- str:  Show the sign column
 -- wrap and the length of a line
 opt.wrap = true
 opt.linebreak = true
-opt.textwidth = 126
+opt.textwidth = 120
 
 -- [[ File ]]
 opt.encoding = "utf8"            -- str:  String encoding to use
