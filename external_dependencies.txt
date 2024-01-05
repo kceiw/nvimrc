@@ -5,3 +5,4 @@ ripgrep
 fd
 omnisharp
 pipenv for virtual environment management
+gh
