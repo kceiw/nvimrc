@@ -28,10 +28,25 @@ return {
         "<leader>vc", "<cmd>:VenvSelectCached<cr>"
       }
     },
-    config = function()
-      require("venv-selector").setup({
-        pipenv_path = vim.env.WORKON_HOME
+    ft = {
+      "python"
+    },
+    init = function()
+      vim.api.nvim_create_autocmd({"VimEnter", "TabEnter", "TabNewEntered"}, {
+        desc = "Auto select virtualenv Nvim or tab open",
+        pattern = "*",
+        callback = function()
+          local venv = vim.fn.findfile("Pipfile", vim.fn.getcwd() .. ";")
+          if venv ~= "" then
+            require("venv-selector").retrieve_from_cache()
+          end
+        end,
       })
-    end,
-  },
+  end,
+  config = function()
+    require("venv-selector").setup({
+      pipenv_path = vim.env.WORKON_HOME
+    })
+  end,
+},
 }

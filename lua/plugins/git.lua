@@ -8,5 +8,5 @@ return {
   },
   {
     "junegunn/gv.vim",
-  },
+  }
 }
