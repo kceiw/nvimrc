@@ -167,8 +167,10 @@ return {
     opts = {
       ensure_installed = {
         -- Ensure the linter tools are installed
+        "flake8",
         "jsonlint",
         "markdownlint",
+        "pylint",
         "yamllint",
 
         -- Ensure the formatter tools are installed
@@ -179,7 +181,8 @@ return {
         "prettierd",
         "black",
         "yamlfmt",
-      }
+      },
+      auto_update = trtue,
     }
   },
   {
@@ -270,6 +273,7 @@ return {
         json = { "jsonlint" },
         markdown = { "markdownlint" },
         yaml = { "yamllint" },
+        python = { "pylint", "flake8" },
       }
     end,
     init = function()
