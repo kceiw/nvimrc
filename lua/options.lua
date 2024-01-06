@@ -119,3 +119,6 @@ if string.find(os_name, "Windows") then
     opt[option] = value
   end
 end
+
+-- This is required by obsidian.nvim plugin
+opt.conceallevel = 1
