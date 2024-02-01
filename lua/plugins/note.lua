@@ -5,13 +5,6 @@ return {
       -- Required.
       "nvim-lua/plenary.nvim",
     },
-    --    lazy = true,
-    --    event = {
-    --      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    --      "BufReadPre " .. vim.fn.expand "~" .. "/Notes/**.md",
-    --      "BufNewFile" .. vim.fn.expand "~" .. "/Notes/**.md",
-    --    },
     opts = {
       workspaces = {
         {
@@ -25,7 +18,7 @@ return {
         folder = "Journal",
         date_format = "%Y/%m/%Y-%m-%d",
         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-        template = "Journa/template/daily.md"
+        template = nil
       },
 
       -- Optional, completion.
