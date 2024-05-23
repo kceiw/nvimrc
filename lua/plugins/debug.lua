@@ -3,6 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       "jay-babu/mason-nvim-dap.nvim",
+      "nvim-neotest/nvim-nio",
     },
     config = function()
       local nvim_data_path = vim.api.nvim_eval("stdpath('data')")
