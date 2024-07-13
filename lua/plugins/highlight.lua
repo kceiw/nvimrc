@@ -36,6 +36,15 @@ return {
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = { "markdown" },
+        -- treesitter is slow in large file, so disable it.
+        -- https://github.com/nvim-treesitter/nvim-treesitter/blob/972aa544efb56e2f2f53c5f3c2537e43467dd5cb/README.md?plain=1#L132-L139
+        disable = function(lang, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+              return true
+          end
+        end,
       },
       indent = {
         enable = true
