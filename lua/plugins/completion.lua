@@ -8,6 +8,26 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+local default_cmp_sources = {
+  { name = "copilot" },
+  { name = "nvim_lsp" },
+  { name = "nvim_lsp_signature_help" },
+  { name = "buffer" },
+  { name = "ultisnips" },
+  { name = "path" },
+  { name = "treesitter" },
+}
+
+local bufIsBig = function(bufnr)
+  local max_filesize = 100 * 1024 -- 100 KB
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  if ok and stats and stats.size > max_filesize then
+    return true
+  else
+    return false
+  end
+end
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -35,6 +55,21 @@ return {
       "ray-x/cmp-treesitter",
       "zbirenbaum/copilot-cmp",
     },
+    init = function()
+      -- If a file is too large, I don't want to add to it's cmp sources treesitter, see:
+      -- https://github.com/hrsh7th/nvim-cmp/issues/1522
+      vim.api.nvim_create_autocmd('BufReadPre', {
+        callback = function(t)
+          local sources = cmp.config.source(default_cmp_sources)
+          if not bufIsBig(t.buf) then
+            sources[#sources+1] = {name = 'treesitter', group_index = 2}
+          end
+          cmp.setup.buffer {
+            sources = sources
+          }
+        end
+      })
+    end,
     config = function()
       local lspkind = require("lspkind")
       local cmp = require("cmp")
@@ -50,15 +85,7 @@ return {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-        sources = cmp.config.sources({
-          { name = "copilot" },
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "buffer" },
-          { name = "ultisnips" },
-          { name = "path" },
-          { name = "treesitter" },
-        }),
+        sources = cmp.config.sources(default_cmp_sources),
         enabled = function()
           -- disable completion in comments
           local context = require "cmp.config.context"
