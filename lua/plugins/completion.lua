@@ -56,11 +56,12 @@ return {
       "zbirenbaum/copilot-cmp",
     },
     init = function()
+      local cmp = require("cmp")
       -- If a file is too large, I don't want to add to it's cmp sources treesitter, see:
       -- https://github.com/hrsh7th/nvim-cmp/issues/1522
       vim.api.nvim_create_autocmd('BufReadPre', {
         callback = function(t)
-          local sources = cmp.config.source(default_cmp_sources)
+          local sources = cmp.config.sources(default_cmp_sources)
           if not bufIsBig(t.buf) then
             sources[#sources+1] = {name = 'treesitter', group_index = 2}
           end
