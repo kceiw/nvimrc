@@ -32,7 +32,8 @@ return {
     },
   config = function()
     require("venv-selector").setup({
-      pipenv_path = vim.env.WORKON_HOME
+      pipenv_path = vim.env.WORKON_HOME,
+      stay_on_this_version = true
     })
   end,
 },
