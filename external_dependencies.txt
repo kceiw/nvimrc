@@ -1,6 +1,6 @@
 sqlite3
 npm
-python3,pip
+python3,pip,venv
 ripgrep
 fd/fd-find
 omnisharp
@@ -8,3 +8,4 @@ pipenv for virtual environment management
 gh
 clang
 npm install -g neovim
+universal ctags
