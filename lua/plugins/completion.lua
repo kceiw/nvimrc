@@ -121,17 +121,17 @@ return {
               end
             end,
             i = function(fallback)
-              if cmp.visible() and has_words_before() then
+              if cmp.visible() then
                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
               elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                  cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+                cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
               else
                 fallback()
               end
             end,
             s = function(fallback)
               if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                  cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+                cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
               else
                 fallback()
               end
@@ -202,21 +202,28 @@ return {
           ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
           ['<CR>'] = cmp.mapping({
             i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+              else
+                fallback()
+              end
+            end
           })
         },
       })
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
       cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
+        completion = { autocomplete = false },
         sources = {
-          { name = "buffer" }
+          { name = "buffer", opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
         }
       })
 
       -- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        completion = { autocomplete = false },
         sources = cmp.config.sources({ { name = "path" } },
         { { name = "cmdline" } })
       })
