@@ -9,7 +9,6 @@ local t = function(str)
 end
 
 local default_cmp_sources = {
-  { name = "copilot" },
   { name = "nvim_lsp" },
   { name = "nvim_lsp_signature_help" },
   { name = "buffer" },
@@ -34,7 +33,6 @@ return {
     --    event = "InsertEnter",
     dependencies = {
       "neovim/nvim-lspconfig",
-      "zbirenbaum/copilot.lua",
 
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-buffer",
@@ -53,7 +51,6 @@ return {
 
       "windwp/nvim-autopairs",
       "ray-x/cmp-treesitter",
-      "zbirenbaum/copilot-cmp",
     },
     init = function()
       local cmp = require("cmp")
@@ -110,7 +107,6 @@ return {
               ultisnips = "[Snip]",
               path = "[Path]",
               nvim_lsp_signature_help = "[Signature]",
-              copilot = "[Copilot]",
               treesitter = "[Treesitter]",
             })
           }),
