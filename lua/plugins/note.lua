@@ -131,41 +131,15 @@ return {
     },
   },
   {
-    "nvim-neorg/neorg",
-    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default. lazy loading may break neorg
-    version = "9.3.0", -- Pin Neorg to the latest stable release
+    "nvim-orgmode/orgmode",
+    event = "VeryLazy",
+    ft = { "org" },
     config = function()
-      require("neorg").setup({
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {},
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/Notes"
-              },
-              default_workspace = "notes"
-            }
-          },
-          ["core.completion"] = {
-            config = {
-              engine = "nvim-cmp",
-            }
-          },
-          ["core.integrations.nvim-cmp"] = {},
-          ["core.clipboard.code-blocks"] = {},
-          ["core.esupports.indent"] = {},
-          ["core.itero"] = {},
-          ["core.pivot"] = {},
-          ["core.promo"] = {},
-          ["core.qol.todo_items"] = {},
-          ["core.ui.calendar"] = {},
-        }
+      -- Setup orgmode
+      require("orgmode").setup({
+        org_agenda_files = "~/Notes/**/*",
+        org_default_notes_file = "~/Notes/index.org",
       })
-
-      vim.wo.foldlevel = 99
-      -- vim.wo.conceallevel = 2
     end,
-  }
+  },
 }
-

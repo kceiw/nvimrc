@@ -15,7 +15,6 @@ local default_cmp_sources = {
   { name = "ultisnips" },
   { name = "path" },
   { name = "treesitter" },
-  { name = "neorg" },
 }
 
 local bufIsBig = function(bufnr)
