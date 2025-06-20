@@ -116,5 +116,11 @@ return {
   {
     "klen/nvim-config-local",
     config = true,
-  }
+  },
+  {
+    "coffebar/transfer.nvim",
+    lazy = true,
+    cmd = { "TransferInit", "DiffRemote", "TransferUpload", "TransferDownload", "TransferDirDiff", "TransferRepeat" },
+    opts = {},
+  },
 }
