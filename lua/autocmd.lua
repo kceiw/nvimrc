@@ -18,3 +18,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.opt.expandtab = true
   end
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = { "*.org" },
+  callback = function()
+    vim.opt.expandtab = true
+  end
+})
