@@ -46,7 +46,7 @@ return {
     "NLKNguyen/papercolor-theme",
   },
   {
-    "ayu-theme/ayu-vim"
+    "Shatur/neovim-ayu"
   },
   {
     "nordtheme/vim",
