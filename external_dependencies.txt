@@ -1,6 +1,6 @@
 sqlite3
 npm
-python3,pip,venv
+python3,pip
 ripgrep
 fd/fd-find
 omnisharp
