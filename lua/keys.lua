@@ -50,3 +50,8 @@ map("n", "<leader>W", ":%s/\\s\\+$//<CR>:let @/=\"\"<CR>", { noremap = true })
 
 
 map("n", "<leader>nt", ":NvimTreeToggle<CR>", { noremap = true })
+
+-- Remap ESC
+map("i", "jk", "<ESC>", {})
+map("t", "jk", "<ESC>", {})
+map("v", "jk", "<ESC>", {})
