@@ -1,9 +1,8 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })
-    end,
+    branch = "main",
+    build = ":TSUpdate",
     opts = {
       auto_install = true,
       ensure_installed = {
@@ -34,6 +33,9 @@ return {
         "vim",
         "vimdoc",
         "yaml"
+      },
+      "ignore_install" = {
+        "org",
       },
       highlight = {
         enable = true,
