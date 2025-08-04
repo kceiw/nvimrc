@@ -1,3 +1,33 @@
+local enabled_languages = {
+  "bash",
+  "bicep",
+  "c",
+  "comment",
+  "cpp",
+  "css",
+  "c_sharp",
+  "dockerfile",
+  "git_rebase",
+  "gitattributes",
+  "gitcommit",
+  "gitignore",
+  "help",
+  "html",
+  "javascript",
+  "json",
+  "json5",
+  "jsonc",
+  "lua",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "query",
+  "sql",
+  "vim",
+  "vimdoc",
+  "yaml"
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -5,38 +35,8 @@ return {
     build = ":TSUpdate",
     opts = {
       auto_install = true,
-      ensure_installed = {
-        "bash",
-        "bicep",
-        "c",
-        "comment",
-        "cpp",
-        "css",
-        "c_sharp",
-        "dockerfile",
-        "git_rebase",
-        "gitattributes",
-        "gitcommit",
-        "gitignore",
-        "help",
-        "html",
-        "javascript",
-        "json",
-        "json5",
-        "jsonc",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "sql",
-        "vim",
-        "vimdoc",
-        "yaml"
-      },
-      "ignore_install" = {
-        "org",
-      },
+      ensure_installed = enabled_languages,
+      ft = enabled_languages,
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = { "markdown" },
@@ -46,7 +46,7 @@ return {
           local max_filesize = 100 * 1024 -- 100 KB
           local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
           if ok and stats and stats.size > max_filesize then
-              return true
+            return true
           end
         end,
       },
