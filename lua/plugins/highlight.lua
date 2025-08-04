@@ -23,6 +23,7 @@ local enabled_languages = {
   "python",
   "query",
   "sql",
+  "typescript",
   "vim",
   "vimdoc",
   "yaml"
