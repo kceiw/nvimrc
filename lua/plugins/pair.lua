@@ -17,5 +17,10 @@ return {
       vim.g.matchup_delim_noskips = 1
     end,
     config = true,
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    config = true,
   }
 }
