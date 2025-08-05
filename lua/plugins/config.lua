@@ -17,6 +17,13 @@ return {
         lookup_parents = false,     -- Lookup config files in parent directories
       }
     end
-  }
+  },
+  {
+    "editorconfig/editorconfig-vim",
+    init = function()
+      -- To ensure that this plugin works well with Tim Pope's fugitive or remote files over ssh
+      vim.g.EditorConfig_exclude_patterns = ["fugitive://.*", "scp://.*"]
+    end,
+  },
 }
 
