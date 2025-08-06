@@ -3,6 +3,7 @@ npm
 python3,pip,venv
 ripgrep
 fd/fd-find
+fzf
 omnisharp
 pipenv for virtual environment management
 gh
