@@ -22,7 +22,7 @@ return {
     "editorconfig/editorconfig-vim",
     init = function()
       -- To ensure that this plugin works well with Tim Pope's fugitive or remote files over ssh
-      vim.g.EditorConfig_exclude_patterns = ["fugitive://.*", "scp://.*"]
+      vim.g.EditorConfig_exclude_patterns = {"fugitive://.*", "scp://.*"}
     end,
   },
 }
