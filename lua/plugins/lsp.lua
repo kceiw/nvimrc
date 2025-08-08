@@ -47,6 +47,14 @@ return {
       { "<leader>lf", function() vim.lsp.buf.format { async = true } end, mode = "n", noremap = true, silent = true },
     },
     init = function()
+      -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+      -- cmp_nvim_lsp is a dependency of cmp-nvim. So lsp has a dependency on cmp-nvim. That'll bring in cmp_nvim_lsp
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      vim.lsp.config("*", {
+        capabilities = capabilities
+      })
+
       local nvim_data_path = vim.api.nvim_eval("stdpath('data')")
       local mason_packages_path = nvim_data_path .. "/mason/packages/"
 
