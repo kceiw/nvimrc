@@ -1,43 +1,3 @@
-local opts = {
-  noremap=true,
-  silent=true
-}
-
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = {
-    noremap=true,
-    silent=true,
-    buffer=bufnr
-  }
-
-  vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set("n", "<leader>law", vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set("n", "<leader>lrw", vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set("n", "<leader>lw", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format { async = true } end, bufopts)
-end
-
 local languages = {
   ["clangd"] = "clangd",
   ["lua_ls"] = "lua-language-server",
@@ -67,87 +27,109 @@ return {
       "Hoffs/omnisharp-extended-lsp.nvim",
       "hrsh7th/nvim-cmp",
     },
-    config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local locallsp = require("lspconfig")
-
+    keys = {
+      { "<space>e", "<cmd>lua vim.diagnostic.open_float()<cr>", mode = "n", noremap = true, silent = true },
+      { "[d", "<cmd>lua diagnostic.goto_prev()<cr>", mode = "n", noremap = true, silent = true },
+      { "]d", "<cmd>lua diagnostic.goto_next()<cr>", mode = "n", noremap = true, silent = true },
+      { "<space>q", "<cmd>lua diagnostic.setloclist()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>law", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>lrw", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>lw", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, mode = "n", noremap = true, silent = true },
+      { "<leader>lt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>ln", "<cmd>lua vim.lsp.buf.rename()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", mode = "n", noremap = true, silent = true },
+      { "<leader>lf", function() vim.lsp.buf.format { async = true } end, mode = "n", noremap = true, silent = true },
+    },
+    init = function()
       local nvim_data_path = vim.api.nvim_eval("stdpath('data')")
       local mason_packages_path = nvim_data_path .. "/mason/packages/"
 
       for key, value in pairs(languages) do
         local language_path = mason_packages_path .. value
         if vim.fn.isdirectory(language_path) ~= 0 then
-          if key == "lua_ls" then
-            locallsp["lua_ls"].setup({
-              on_attach = on_attach,
-              capabilities = capabilities,
+          vim.lsp.enable(key)
+
+          if key == "powershell_es" then
+            vim.lsp.config("powershell_es", {
+              bundle_path = language_path .. "/PowerShellEditorServices",
+            })
+
+          elseif key == "omnisharp" then
+            local omnisharp_extended = require("omnisharp_extended")
+            vim.lsp.config("omnisharp", {
+              cmd = {
+                "omnisharp",
+                "-z", -- https://github.com/OmniSharp/omnisharp-vscode/pull/4300
+                "--hostPID",
+                tostring(vim.fn.getpid()),
+                "DotNet:enablePackageRestore=false",
+                "--encoding",
+                "utf-8",
+                "--languageserver",
+              },
               settings = {
-                lua_ls = {
-                  diagnostics = {
-                    globals = {"vim"},
-                  },
+                FormattingOptions = {
+                  -- Enables support for reading code style, naming convention and analyzer
+                  -- settings from .editorconfig.
+                  EnableEditorConfigSupport = true,
+                  -- Specifies whether 'using' directives should be grouped and sorted during
+                  -- document formatting.
+                  OrganizeImports = true,
+                },
+                MsBuild = {
+                  -- If true, MSBuild project system will only load projects for files that
+                  -- were opened in the editor. This setting is useful for big C# codebases
+                  -- and allows for faster initialization of code navigation features only
+                  -- for projects that are relevant to code that is being edited. With this
+                  -- setting enabled OmniSharp may load fewer projects and may thus display
+                  -- incomplete reference lists for symbols.
+                  LoadProjectsOnDemand = true,
+                },
+                RoslynExtensionsOptions = {
+                  -- Enables support for roslyn analyzers, code fixes and rulesets.
+                  EnableAnalyzersSupport = true,
+                  -- Enables support for showing unimported types and unimported extension
+                  -- methods in completion lists. When committed, the appropriate using
+                  -- directive will be added at the top of the current file. This option can
+                  -- have a negative impact on initial completion responsiveness,
+                  -- particularly for the first few completion sessions after opening a
+                  -- solution.
+                  EnableImportCompletion = nil,
+                  -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+                  -- true
+                  AnalyzeOpenDocumentsOnly = nil,
+                  -- Enables the possibility to see the code in external nuget dependencies
+                  EnableDecompilationSupport = nil,
+                },
+                RenameOptions = {
+                  RenameInComments = true,
+                  RenameOverloads = true,
+                  RenameInStrings = true,
+                },
+                Sdk = {
+                  -- Specifies whether to include preview versions of the .NET SDK when
+                  -- determining which version to use for project loading.
+                  IncludePrereleases = true,
                 },
               },
-            })
-          elseif key == "omnisharp" then
-            locallsp["omnisharp"].setup({
-              on_attach = function (client, bufnr)
-                -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1492605642
-
-                local function toSnakeCase(str)
-                    return string.gsub(str, "%s*[- ]%s*", "_")
-                end
-
-                local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-                for i, v in ipairs(tokenModifiers) do
-                  tokenModifiers[i] = toSnakeCase(v)
-                end
-
-                local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-                for i, v in ipairs(tokenTypes) do
-                  local tmp = string.gsub(v, ' ', '_')
-                  tokenTypes[i] = toSnakeCase(v)
-                end
-
-                on_attach(client, bufnr)
-              end,
-              capabilities = capabilities,
-              cmd = { "omnisharp" },
-              settings = {
-                omnisharp = {
-                  cmd = { "omnisharp" },
-                  enable_editorconfig_support = true,
-                  enable_ms_build_load_projects_on_demand = true,
-                  enable_roslyn_analyzers = true,
-                  organize_imports_on_format = true,
-                }
-              },
               handlers = {
-                ["textDocument/definition"] = require('omnisharp_extended').handler,
-              }
-            })
-          elseif key == "powershell_es" then
-            locallsp[key].setup({
-              on_attach = on_attach,
-              capabilities = capabilities,
-              cmd = {"pwsh", "-Command", language_path .. "/PowerShellEditorServices"},
-              settings = {
-                powershell_es = {
-                  bundle_path = language_path .. "/PowerShellEditorServices",
-                }
-              }
-            })
-          else
-            locallsp[key].setup({
-              on_attach = on_attach,
-              capabilities = capabilities,
+                ["textDocument/definition"] = omnisharp_extended.definition_handler,
+                ["textDocument/typeDefinition"] = omnisharp_extended.type_definition_handler,
+                ["textDocument/references"] = omnisharp_extended.references_handler,
+                ["textDocument/implementation"] = omnisharp_extended.implementation_handler,
+              },
             })
           end
         end
       end
 
-
-    end
+    end,
   },
   {
     "Hoffs/omnisharp-extended-lsp.nvim",
