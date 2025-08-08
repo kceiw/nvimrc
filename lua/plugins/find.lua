@@ -4,12 +4,12 @@ return {
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<Leader>ff", "<cmd>FzfLua files<cr>", "FZF files" },
-      { "<Leader>fb", "<cmd>FzfLua buffers<cr>", "FZF buffers" },
-      { "<Leader>fg", "<cmd>FzfLua live_grep<cr>", "FZF live grep" },
-      { "<Leader>fm", "<cmd>FzfLua git_commits<cr>", "FZF git commits" },
-      { "<Leader>fh", "<cmd>FzfLua helptags<cr>", "FZF helptags" },
-      { "<Leader>ft", "<cmd>FzfLua tags<cr>", "FZF tags" },
+      { "<Leader>ff", "<cmd>FzfLua files<cr>", desc = "FZF files" },
+      { "<Leader>fb", "<cmd>FzfLua buffers<cr>", desc = "FZF buffers" },
+      { "<Leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "FZF live grep" },
+      { "<Leader>fm", "<cmd>FzfLua git_commits<cr>", desc = "FZF git commits" },
+      { "<Leader>fh", "<cmd>FzfLua helptags<cr>", desc = "FZF helptags" },
+      { "<Leader>ft", "<cmd>FzfLua tags<cr>", desc = "FZF tags" },
     },
     opts = {}
   },
