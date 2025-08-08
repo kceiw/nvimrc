@@ -133,12 +133,12 @@ return {
   {
     "nvim-orgmode/orgmode",
     event = "VeryLazy",
-    ft = { "org" },
     config = function()
       -- Setup orgmode
       require("orgmode").setup({
         org_agenda_files = "~/Notes/**/*",
         org_default_notes_file = "~/Notes/index.org",
+        org_todo_keywords = {"TODO(t)", "NEXT(n)", "PROGRESS(p)", "WAITING(w)", "|", "DONE(d)", "HOLD(h)", "CUT(c)", "DELEGATED(d)"}
       })
     end,
   },
