@@ -24,8 +24,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      "antosha417/nvim-lsp-file-operations",
       "Hoffs/omnisharp-extended-lsp.nvim",
-      "hrsh7th/nvim-cmp",
     },
     keys = {
       { "<space>e", "<cmd>lua vim.diagnostic.open_float()<cr>", mode = "n", noremap = true, silent = true },
@@ -49,7 +49,12 @@ return {
     init = function()
       -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
       -- cmp_nvim_lsp is a dependency of cmp-nvim. So lsp has a dependency on cmp-nvim. That'll bring in cmp_nvim_lsp
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities(),
+        require("lsp-file-operations").default_capabilities()
+      )
 
       vim.lsp.config("*", {
         capabilities = capabilities
@@ -136,11 +141,20 @@ return {
           end
         end
       end
-
     end,
   },
   {
     "Hoffs/omnisharp-extended-lsp.nvim",
+  },
+  {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-tree.lua",
+    },
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
   },
   {
     "williamboman/mason.nvim",
