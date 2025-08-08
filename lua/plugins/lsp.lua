@@ -140,12 +140,19 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
     opts = {
       ensure_installed = lsp_languages,
     }
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+    },
     opts = {
       ensure_installed = {
         -- Ensure the linter tools are installed
@@ -164,7 +171,7 @@ return {
         "black",
         "yamlfmt",
       },
-      auto_update = trtue,
+      auto_update = true,
     }
   },
   {
