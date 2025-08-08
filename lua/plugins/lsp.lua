@@ -176,6 +176,10 @@ return {
   },
   {
     "mhartington/formatter.nvim",
+    keys = {
+      { "<leader>f", "<cmd>Format<cr>", noremap = true, silent = true },
+      { "<leader>F", "<cmd>FormatWrite<cr>", noremap = true, silent = true },
+    },
     config = function()
       local util = require("formatter.util")
       require("formatter").setup({
@@ -245,14 +249,6 @@ return {
           }
         }
       })
-    end,
-    init = function()
-      local keymap_opts = {
-        noremap = true,
-        silent = true,
-      },
-      vim.keymap.set("n", "<leader>f", ":Format<CR>", keymap_opts)
-      vim.keymap.set("n", "<leader>F", ":FormatWrite<CR>", keymap_opts)
     end,
   },
   {
