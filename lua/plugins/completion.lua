@@ -15,6 +15,7 @@ local default_cmp_sources = {
   { name = "ultisnips" },
   { name = "path" },
   { name = "treesitter" },
+  { name = "copilot" },
 }
 
 local bufIsBig = function(bufnr)
@@ -101,6 +102,7 @@ return {
             mode = "symbol_text",
             maxwidth = 50,
             ellipsis_char = "...",
+            symbol_map = { Copilot = "" },
             menu = ({
               buffer = "[Buffer]",
               nvim_lsp = "[LSP]",
@@ -108,6 +110,7 @@ return {
               path = "[Path]",
               nvim_lsp_signature_help = "[Signature]",
               treesitter = "[Treesitter]",
+              copilot = "[Copilot]",
             })
           }),
         },
@@ -121,7 +124,7 @@ return {
               end
             end,
             i = function(fallback)
-              if cmp.visible() then
+              if cmp.visible() and has_words_before() then
                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
               elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
                 cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
