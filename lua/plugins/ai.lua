@@ -3,6 +3,9 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
+    cond = function()
+      return (vim.env.NVIM_USE_AI == "1")
+    end,
     config = function()
       require("copilot").setup({
         suggestion = { enabled = false },
@@ -32,8 +35,11 @@ return {
   },
   {
     "zbirenbaum/copilot-cmp",
+    cond = function()
+      return (vim.env.NVIM_USE_AI == "1")
+    end,
     config = function ()
       require("copilot_cmp").setup()
-    end
+    end,
   }
 }
