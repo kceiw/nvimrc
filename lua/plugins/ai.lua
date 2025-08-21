@@ -41,5 +41,18 @@ return {
     config = function ()
       require("copilot_cmp").setup()
     end,
-  }
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    cond = function()
+      return (vim.env.NVIM_USE_AI == "1")
+    end,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+    },
+    build = "make tiktoken",
+    opts = {
+      -- See Configuration section for options
+    },
+  },
 }
