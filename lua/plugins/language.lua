@@ -9,10 +9,17 @@ return {
   },
   {
     "moevis/base64.nvim",
+    cmd = {
+      "Base64Decode",
+      "Base64Encode",
+    },
   },
   {
     "linux-cultist/venv-selector.nvim",
     branch = "regexp",
+    ft = {
+      "python"
+    },
     dependencies = {
       "neovim/nvim-lspconfig",
     },
@@ -26,9 +33,6 @@ return {
         -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
         "<leader>vc", "<cmd>:VenvSelectCached<cr>"
       }
-    },
-    ft = {
-      "python"
     },
     config = function()
       require("venv-selector").setup({

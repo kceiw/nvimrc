@@ -3,6 +3,10 @@ return {
     "epwalsh/obsidian.nvim",
     lazy = true,
     ft = "markdown",
+    cmd = {
+      "ObsidianToday",
+      "ObsidianNew",
+    },
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
@@ -175,6 +179,7 @@ return {
   {
     "nvim-orgmode/orgmode",
     event = "VeryLazy",
+    ft = "org",
     config = function()
       -- Setup orgmode
       require("orgmode").setup({

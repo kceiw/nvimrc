@@ -32,6 +32,7 @@ local enabled_languages = {
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    ft = enabled_languages,
     branch = "main",
     build = ":TSUpdate",
     opts = {
@@ -64,6 +65,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+    ft = enabled_languages,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = true,
   },
