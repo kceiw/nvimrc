@@ -34,6 +34,8 @@ return {
     config = function()
       -- you can configure Hop the way you like here; see :h hop-config
       require("hop").setup({
+        quit_key = "<SPC>",
+        uppercase_labels = true,
         keys = "etovxqpdygfblzhckisuran",
         extensions = {
           "hop-zh-by-flypy"
